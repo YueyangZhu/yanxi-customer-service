@@ -461,4 +461,4 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
-app.listen(port, "127.0.0.1", () => console.log(`API ready at http://127.0.0.1:${port}`));
+app.listen(port, "0.0.0.0", () => console.log(`API ready at http://0.0.0.0:${port}`));
