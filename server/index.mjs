@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { createClient } from "@supabase/supabase-js";
+import ws from "ws";
 import { randomUUID } from "node:crypto";
 
 const app = express();
@@ -12,7 +13,7 @@ const COZE_BASE = "https://api.coze.cn";
 
 const supabaseUrl = process.env.SUPABASE_URL || "";
 const supabaseKey = process.env.SUPABASE_SERVICE_KEY || "";
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(supabaseUrl, supabaseKey, { realtime: { transport: ws } });
 
 app.use(cors());
 app.use(express.json({ limit: "300kb" }));

@@ -24,6 +24,7 @@
     "jspdf": "^4.2.1",
     "react": "latest",
     "react-dom": "latest",
-    "vite": "latest"
+    "vite": "latest",
+    "ws": "^8.21.0"
   }
 }
