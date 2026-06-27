@@ -31,10 +31,6 @@ services:
   # 前端静态站点（React + Vite）
   - type: static
     name: yanxi-customer-service-web
-    runtime: static
-    plan: free
-    region: singapore
-    branch: main
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     envVars:
