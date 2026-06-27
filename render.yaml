@@ -28,11 +28,15 @@ services:
       - key: COZE_BOT_ID
         value: 7653375037604380691
 
-  # 前端静态站点（React + Vite）
-  - type: static
+  # 前端（React + Vite 构建后用 vite preview 托管）
+  - type: web
     name: yanxi-customer-service-web
+    runtime: node
+    plan: free
+    region: singapore
+    branch: main
     buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
+    startCommand: npx vite preview --port $PORT --host
     envVars:
       - key: NODE_VERSION
         value: 20
