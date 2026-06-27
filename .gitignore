@@ -1,0 +1,63 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Production builds
+dist/
+dist-*.zip
+*.zip
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Test / coverage
+coverage/
+
+# Supabase local state
+.supabase/
+
+# Legacy CloudBase cloud functions (no longer needed on Render)
+cloudfunctions/
+
+# Large binary assets not needed for deployment
+public/fonts/*.ttf
+public/fonts/*.otf
+public/fonts/*.woff*
+
+# Rendered docs and design assets (large binary files)
+docs/rendered_*/
+docs/assets/
+docs/**/*.pdf
+docs/**/*.docx
+docs/**/*.doc
+docs/**/*.png
+docs/**/*.jpg
+docs/**/*.jpeg
+docs/**/*.gif
+docs/**/*.csv
+
+# pnpm lock/workspace (project now uses npm)
+pnpm-lock.yaml
+pnpm-workspace.yaml

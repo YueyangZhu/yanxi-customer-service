@@ -1,0 +1,44 @@
+# Render Blueprint：一键部署言析智能客服
+# 使用方法：
+# 1. 把此仓库 push 到 GitHub
+# 2. 登录 Render Dashboard → Blueprint → New Blueprint Instance
+# 3. 选择本仓库，Render 会自动创建 Web Service + Static Site
+# 4. 在环境变量处填入 SUPABASE_SERVICE_KEY、COZE_API_TOKEN、COZE_BOT_ID
+
+services:
+  # 后端 API（Node.js + Express + Supabase）
+  - type: web
+    name: yanxi-customer-service-api
+    runtime: node
+    plan: free
+    region: singapore
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: SUPABASE_URL
+        value: https://blzamgwjgscktuzujmlj.supabase.co
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: COZE_API_TOKEN
+        sync: false
+      - key: COZE_BOT_ID
+        value: 7653375037604380691
+
+  # 前端静态站点（React + Vite）
+  - type: static
+    name: yanxi-customer-service-web
+    runtime: static
+    plan: free
+    region: singapore
+    branch: main
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: VITE_API_BASE
+        value: https://yanxi-customer-service-api.onrender.com
