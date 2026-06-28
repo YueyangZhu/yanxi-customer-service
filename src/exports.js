@@ -75,15 +75,15 @@ export async function exportExcel(data, dashboard) {
   overview.getCell("B7").numFmt = "0%";
   overview.eachRow((row, number) => { if (number > 1) { row.height = 26; row.alignment = { vertical: "middle", wrapText: true }; } });
 
-  addSheet(workbook, "会话记录", [["会话ID", "id"], ["状态", "status"], ["是否解决", "resolved"], ["关联工单", "ticketId"], ["开始时间", "createdAt"], ["更新时间", "updatedAt"]], data.sessions.map((x) => ({ ...x, resolved: x.resolved === "" || x.resolved == null ? "待评价" : x.resolved ? "是" : "否", createdAt: dateTime(x.createdAt), updatedAt: dateTime(x.updatedAt) })), [24, 14, 14, 24, 22, 22]);
-  addSheet(workbook, "消息明细", [["消息ID", "id"], ["会话ID", "sessionId"], ["角色", "role"], ["消息内容", "content"], ["意图", "intent"], ["置信度", "confidence"], ["动作", "action"], ["来源", "source"], ["风险", "riskLevel"], ["时间", "createdAt"]], data.messages.map((x) => ({ ...x, confidence: typeof x.confidence === "number" ? x.confidence : "", createdAt: dateTime(x.createdAt) })), [38, 24, 12, 52, 20, 12, 20, 22, 12, 22]);
+  addSheet(workbook, "会话记录", [["会话ID", "id"], ["状态", "status"], ["是否解决", "resolved"], ["关联工单", "ticket_id"], ["开始时间", "created_at"], ["更新时间", "updated_at"]], data.sessions.map((x) => ({ ...x, resolved: x.resolved === "" || x.resolved == null ? "待评价" : x.resolved ? "是" : "否", created_at: dateTime(x.created_at), updated_at: dateTime(x.updated_at) })), [24, 14, 14, 24, 22, 22]);
+  addSheet(workbook, "消息明细", [["消息ID", "id"], ["会话ID", "session_id"], ["角色", "role"], ["消息内容", "content"], ["意图", "intent"], ["置信度", "confidence"], ["动作", "action"], ["来源", "source"], ["风险", "risk_level"], ["时间", "created_at"]], data.messages.map((x) => ({ ...x, confidence: typeof x.confidence === "number" ? x.confidence : "", created_at: dateTime(x.created_at) })), [38, 24, 12, 52, 20, 12, 20, 22, 12, 22]);
   const messageSheet = workbook.getWorksheet("消息明细");
   messageSheet.getColumn("confidence").numFmt = "0%";
-  addSheet(workbook, "人工工单", [["工单ID", "id"], ["会话ID", "sessionId"], ["意图", "intent"], ["转人工原因", "handoffReason"], ["优先级", "priority"], ["状态", "status"], ["摘要", "summary"], ["创建时间", "createdAt"], ["更新时间", "updatedAt"]], data.tickets.map((x) => ({ ...x, createdAt: dateTime(x.createdAt), updatedAt: dateTime(x.updatedAt) })), [24, 24, 20, 32, 12, 14, 52, 22, 22]);
-  addSheet(workbook, "人工回复", [["回复ID", "id"], ["工单ID", "ticketId"], ["会话ID", "sessionId"], ["回复内容", "content"], ["回复时间", "createdAt"]], data.replies.map((x) => ({ ...x, createdAt: dateTime(x.createdAt) })), [38, 24, 24, 52, 22]);
-  addSheet(workbook, "服务评价", [["评价ID", "id"], ["会话ID", "sessionId"], ["是否解决", "resolved"], ["评分", "score"], ["评价内容", "comment"], ["评价时间", "createdAt"]], data.ratings.map((x) => ({ ...x, resolved: x.resolved ? "是" : "否", createdAt: dateTime(x.createdAt) })), [24, 24, 14, 10, 52, 22]);
-  addSheet(workbook, "退款申请", [["退款单号", "id"], ["会话ID", "sessionId"], ["订单号", "orderNo"], ["退款原因", "reason"], ["状态", "status"], ["申请时间", "createdAt"], ["更新时间", "updatedAt"]], data.refunds.map((x) => ({ ...x, createdAt: dateTime(x.createdAt), updatedAt: dateTime(x.updatedAt) })), [24, 24, 20, 28, 14, 22, 22]);
-  addSheet(workbook, "知识缺口", [["记录ID", "id"], ["用户问题", "question"], ["出现次数", "count"], ["状态", "status"], ["首次记录", "createdAt"], ["最近更新", "updatedAt"]], data.knowledgeGaps.map((x) => ({ ...x, createdAt: dateTime(x.createdAt), updatedAt: dateTime(x.updatedAt) })), [28, 52, 12, 14, 22, 22]);
+  addSheet(workbook, "人工工单", [["工单ID", "id"], ["会话ID", "session_id"], ["意图", "intent"], ["转人工原因", "handoff_reason"], ["优先级", "priority"], ["状态", "status"], ["摘要", "summary"], ["创建时间", "created_at"], ["更新时间", "updated_at"]], data.tickets.map((x) => ({ ...x, created_at: dateTime(x.created_at), updated_at: dateTime(x.updated_at) })), [24, 24, 20, 32, 12, 14, 52, 22, 22]);
+  addSheet(workbook, "人工回复", [["回复ID", "id"], ["工单ID", "ticket_id"], ["会话ID", "session_id"], ["回复内容", "content"], ["回复时间", "created_at"]], data.replies.map((x) => ({ ...x, created_at: dateTime(x.created_at) })), [38, 24, 24, 52, 22]);
+  addSheet(workbook, "服务评价", [["评价ID", "id"], ["会话ID", "session_id"], ["是否解决", "resolved"], ["评分", "score"], ["评价内容", "comment"], ["评价时间", "created_at"]], data.ratings.map((x) => ({ ...x, resolved: x.resolved ? "是" : "否", created_at: dateTime(x.created_at) })), [24, 24, 14, 10, 52, 22]);
+  addSheet(workbook, "退款申请", [["退款单号", "id"], ["会话ID", "session_id"], ["订单号", "order_no"], ["退款原因", "reason"], ["状态", "status"], ["申请时间", "created_at"], ["更新时间", "updated_at"]], data.refunds.map((x) => ({ ...x, created_at: dateTime(x.created_at), updated_at: dateTime(x.updated_at) })), [24, 24, 20, 28, 14, 22, 22]);
+  addSheet(workbook, "知识缺口", [["记录ID", "id"], ["用户问题", "question"], ["出现次数", "count"], ["状态", "status"], ["首次记录", "created_at"], ["最近更新", "updated_at"]], data.knowledgeGaps.map((x) => ({ ...x, created_at: dateTime(x.created_at), updated_at: dateTime(x.updated_at) })), [28, 52, 12, 14, 22, 22]);
 
   const buffer = await workbook.xlsx.writeBuffer();
   saveBlob(new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), `言析智能客服_运营数据_${data.range.from || "全部"}_${data.range.to || "全部"}.xlsx`);
@@ -104,11 +104,11 @@ function recommendations(data, raw = {}) {
   }
   const lowRating = (raw.ratings || []).find((item) => Number(item.score) <= 2);
   if (lowRating) {
-    const userMessage = [...(raw.messages || [])].reverse().find((item) => item.sessionId === lowRating.sessionId && item.role === "user");
+    const userMessage = [...(raw.messages || [])].reverse().find((item) => item.session_id === lowRating.session_id && item.role === "user");
     items.push(`低评分会话（${lowRating.score} 分）涉及“${clipText(userMessage?.content || lowRating.comment, 34)}”。建议在人工工作台明确首次响应时限，并要求关闭前记录处理结论；下周抽查同类会话是否真正闭环。`);
   }
   const ticket = (raw.tickets || []).find((item) => item.priority === "high") || (raw.tickets || [])[0];
-  if (ticket) items.push(`人工工单示例“${clipText(ticket.summary || ticket.handoffReason, 42)}”。建议把“金额争议、投诉、主动要求人工”固化为高优先级规则，并监控接入耗时和关闭原因，避免只转单不解决。`);
+  if (ticket) items.push(`人工工单示例“${clipText(ticket.summary || ticket.handoff_reason, 42)}”。建议把“金额争议、投诉、主动要求人工”固化为高优先级规则，并监控接入耗时和关闭原因，避免只转单不解决。`);
   if ((metrics.handoffRate || 0) > 30) items.push(`本周期转人工率为 ${metrics.handoffRate}%。建议优先复盘高频转人工意图，将可标准化的查询步骤写入知识库或订单查询规则，并以转人工率下降 5 个百分点作为下一周期目标。`);
   if (!items.length) items.push("本周期核心指标稳定。建议每周抽样 10 条会话检查回答准确性、时效性和解决闭环，并记录知识库更新日期。 ");
   return items.slice(0, 4);
