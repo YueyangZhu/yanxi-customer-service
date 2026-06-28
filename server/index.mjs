@@ -248,7 +248,7 @@ function buildDashboard(range = {}) {
   };
 }
 
-async function pick(items, fields, range = {}) {
+function pick(items, fields, range = {}) {
   return withinBeijingRange(items, range).map((item) => Object.fromEntries(fields.map((field) => [field, item[field] ?? ""])));
 }
 
