@@ -1,5 +1,6 @@
 import ExcelJS from "exceljs";
 import { jsPDF } from "jspdf";
+import simheiUrl from "./fonts/simhei.ttf?url";
 
 const COLORS = { ink: "14212B", green: "0B7258", pale: "E7EEE9", lime: "CBED70", white: "FFFFFF", line: "DCE4DF" };
 
@@ -115,7 +116,7 @@ function recommendations(data, raw = {}) {
 }
 
 async function installChineseFont(pdf) {
-  const response = await fetch(`${import.meta.env.BASE_URL}fonts/simhei.ttf`);
+  const response = await fetch(simheiUrl);
   if (!response.ok) throw new Error("中文报告字体加载失败");
   const bytes = new Uint8Array(await response.arrayBuffer());
   let binary = "";
