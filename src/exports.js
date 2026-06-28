@@ -119,8 +119,13 @@ async function installChineseFont(pdf) {
   if (!response.ok) throw new Error("中文报告字体加载失败");
   const bytes = new Uint8Array(await response.arrayBuffer());
   let binary = "";
-  const size = 0x8000;
-  for (let index = 0; index < bytes.length; index += size) binary += String.fromCharCode(...bytes.subarray(index, index + size));
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    const slice = bytes.subarray(i, i + chunk);
+    let part = "";
+    for (let j = 0; j < slice.length; j += 1) part += String.fromCharCode(slice[j]);
+    binary += part;
+  }
   pdf.addFileToVFS("simhei.ttf", btoa(binary));
   pdf.addFont("simhei.ttf", "SimHei", "normal");
   pdf.setFont("SimHei", "normal");
